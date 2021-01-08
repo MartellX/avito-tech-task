@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS rooms(
 );
 
 CREATE SEQUENCE IF NOT EXISTS rooms_id_sequence START WITH 1 INCREMENT BY 1;
+CREATE INDEX room_index ON rooms(room_id);
 
 CREATE TABLE IF NOT EXISTS bookings (
     booking_id BIGINT PRIMARY KEY ,
@@ -22,3 +23,4 @@ CREATE TABLE IF NOT EXISTS bookings (
 );
 
 CREATE SEQUENCE IF NOT EXISTS bookings_id_sequence START WITH 1 INCREMENT BY 1;
+CREATE INDEX booking_index ON bookings(booking_id);
