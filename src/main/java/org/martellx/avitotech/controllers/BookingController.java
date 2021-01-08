@@ -77,12 +77,18 @@ public class BookingController {
     }
 
     @GetMapping
-    public ResponseEntity<?> get(@RequestParam long room_id) {
+    public ResponseEntity<?> get(@RequestParam long room_id, @RequestParam(defaultValue = "false") boolean isDescending) {
         ResponseEntity<?> responseEntity;
 
         try {
             if (roomRepository.existsById(room_id)) {
-                List<Booking> result = bookingRepository.findAllByRoom_RoomIdOrderByDateStartAsc(room_id);
+                List<Booking> result;
+                if (isDescending) {
+                    result = bookingRepository.findAllByRoom_RoomIdOrderByDateStartDesc(room_id);
+                } else {
+                    result = bookingRepository.findAllByRoom_RoomIdOrderByDateStartAsc(room_id);
+                }
+
                 responseEntity = new ResponseEntity<>(result, HttpStatus.OK);
             } else {
                 responseEntity = new ApiAnswer(HttpStatus.NOT_FOUND ,"No room found with this id")

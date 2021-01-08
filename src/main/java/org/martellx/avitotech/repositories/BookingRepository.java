@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface BookingRepository extends CrudRepository<Booking, Long> {
 
     List<Booking> findAllByRoom_RoomIdOrderByDateStartAsc(Long room_id);
+    List<Booking> findAllByRoom_RoomIdOrderByDateStartDesc(Long room_id);
 }

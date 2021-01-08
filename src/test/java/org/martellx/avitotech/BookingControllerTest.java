@@ -53,17 +53,20 @@ public class BookingControllerTest {
 
     @Test
     public void createValidBooking_returnIsCreatedAndValidId() throws Exception{
-        mockMvc.perform(
+        ObjectMapper mapper = new ObjectMapper();
+        MvcResult result = mockMvc.perform(
                 post("/rooms")
                         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                         .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
                                 new BasicNameValuePair("description", "Test room 1"),
-                                new BasicNameValuePair("cost", "900"))))));
+                                new BasicNameValuePair("cost", "900")))))).andReturn();
+
+        Long room_id1 = mapper.readTree(result.getResponse().getContentAsString()).get("room_id").asLong();
 
         mockMvc.perform(post("/bookings")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .content(EntityUtils.toString(new UrlEncodedFormEntity(Arrays.asList(
-                        new BasicNameValuePair("room_id", "2"),
+                        new BasicNameValuePair("room_id", room_id1.toString()),
                         new BasicNameValuePair("date_start", "2021-01-15"),
                         new BasicNameValuePair("date_end", "2021-01-20"))))))
                 .andExpect(status().isCreated())
@@ -145,7 +148,7 @@ public class BookingControllerTest {
 
         long id3 = mapper.readTree(result.getResponse().getContentAsString()).get("booking_id").asLong();
 
-        result = mockMvc.perform(get("/bookings?room_id=2"))
+        result = mockMvc.perform(get("/bookings?room_id=" + room_id1.toString()))
                 .andExpect(status().isOk()).andReturn();
 
         JsonNode bookingArray = mapper.readTree(result.getResponse().getContentAsString());
