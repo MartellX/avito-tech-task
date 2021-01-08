@@ -8,8 +8,10 @@
 1. [Скачать](https://github.com/MartellX/avito-tech-task/releases/latest) последний релиз
 2. Распаковать архив в любую директорию
 3. Прописать в `docker-compose.yml` для PostgreSQL сервера: адрес, порт, название бд, логин и пароль пользователя
-4. Для самого сервера прописать порт в `SERVER_PORT` и в `ports`: 
+4. Для самого сервера прописать порт в `SERVER_PORT` и в `ports`:
+
 ![Пример](https://i.imgur.com/apbbtE5.png)
+
 5. Запустить сервер командой `docker compose up`
 6. Немного подождать
 7. Использовать
