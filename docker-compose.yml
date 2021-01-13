@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  app:
+    container_name: avito-tech
+    image: 'avito-tech:latest'
+    build:
+      context: .
+
+    environment:
+      - POSTGRES_URL=192.168.0.109
+      - POSTGRES_PORT=5432
+      - POSTGRES_DBNAME=avito-hostels
+      - POSTGRES_USERNAME=root
+      - POSTGRES_PASSWORD=123
+      - SERVER_PORT=8889
+    ports:
+      - "8889:8889"
